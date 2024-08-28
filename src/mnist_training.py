@@ -24,4 +24,17 @@ model.add(SoftMax())
 
 model.wrap()
 
-model.train(X_train, y_train, validation_data=(X_test, y_test), epochs=10, batch_size=128, print_every=100)
+cost_wrt, accuracy_wrt = model.train(X_train, y_train, validation_data=(X_test, y_test), epochs=10, batch_size=128, print_every=100)
+
+import matplotlib.pyplot as plt
+
+fig, ax = plt.subplots()
+
+ax.plot(cost_wrt, label='Loss Function', color='red')
+ax.plot(accuracy_wrt, label='Accuracy Function', color='blue')
+ax.set_xlabel('Iterations')
+ax.set_ylabel('Value')
+plt.title('Loss vs. Accuracy WRT')
+plt.tight_layout()
+plt.legend()
+plt.show()

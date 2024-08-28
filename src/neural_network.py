@@ -229,6 +229,8 @@ class Model:
         self.optimizer = StochasticGradientDescent(decay=1e-3)
         self.accuracy = CategoricalAccuracy()
         self.softmax_classifier_output = SoftMaxCrossEntropyLossBackward()
+        self.loss_history = []
+        self.accuracy_history = []
 
     def add(self, layer):
         self.layers.append(layer)
@@ -309,6 +311,9 @@ class Model:
                     self.optimizer.update_params(layer)
                 self.optimizer.post_update_params()
 
+                self.loss_history.append(loss)
+                self.accuracy_history.append(accuracy)
+
                 if not step % print_every or step == train_steps - 1:
                     print(f'step: {step}, ' +
                           f'acc: {accuracy:.3f}, ' +
@@ -363,6 +368,8 @@ class Model:
                 print(f'validation, ' +
                       f'acc: {validation_accuracy:.3f}, ' +
                       f'loss: {validation_loss:.3f}')
+                
+        return self.loss_history, self.accuracy_history
     
     def forward(self, X, training):
         self.input_layer.forward(X, training)
