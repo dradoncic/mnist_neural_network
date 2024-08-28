@@ -38,3 +38,5 @@ plt.title('Loss vs. Accuracy WRT')
 plt.tight_layout()
 plt.legend()
 plt.show()
+
+print('git push main')
